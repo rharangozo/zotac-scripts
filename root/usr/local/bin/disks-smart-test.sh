@@ -5,10 +5,17 @@
 function runsmartctl {
 	tail -n 10000 /var/log/$1-smart.log | sponge /var/log/$1-smart.log
 	local output="$(smartctl -a $2 /dev/$1)"
-	echo $output >> /var/log/$1-smart.log 2>&1
-	local result="$(echo $output | grep 'SMART overall-health self-assessment test result: PASSED' | wc -l)"
-	echo "$result"
+	echo "$output" >> /var/log/$1-smart.log 2>&1
+	if [[ $output == *"SMART overall-health self-assessment test result: PASSED"* ]]; then
+		local result=1
+	else
+		local result=0
+	fi
+
+	echo $result
 }
+
+renice -n -19 -p $$ > /dev/null
 
 tail -n 100 /var/log/smart-test-status.log | sponge /var/log/smart-test-status.log
 
