@@ -8,17 +8,13 @@ if [ "$diskspacehigh" -gt "0" ]; then
 	exit 1
 fi
 
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# !!!!!!!!!!!!!TEMPORARY DISABLED !!!!!!!!!!!!
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 # Check the age of the most recent snapshot
 
-#mostRecentSnapshotAge=$(($(date +%s) - $(date +%s -r "/media/zotac/SAMSUNG/rsnapshot/daily.0")))
-#if [ "$mostRecentSnapshotAge" -gt "172800" ]; then
-#	echo "Most recent snapshot is older than 2 days!!!"
-#	exit 1
-#fi
+mostRecentSnapshotAge=$(($(date +%s) - $(date +%s -r "/media/zotac/wd/rsnapshot/daily.0")))
+if [ "$mostRecentSnapshotAge" -gt "172800" ]; then
+	echo "Most recent snapshot is older than 2 days!!!"
+	exit 1
+fi
 
 #
 # Check the age of the last image sync
