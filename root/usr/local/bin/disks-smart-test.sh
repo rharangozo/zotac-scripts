@@ -21,6 +21,7 @@ tail -n 100 /var/log/smart-test-status.log | sponge /var/log/smart-test-status.l
 
 result[0]=$(runsmartctl sdb)
 result[1]=$(runsmartctl sda '-d sat')
+result[2]=$(runsmartctl sdc '-d sat')
 
 for i in "${result[@]}"
 do
